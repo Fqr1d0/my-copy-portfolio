@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const fields = await Astro.glob('../../content/fields/*.md');
+  return fields.map(field => ({
+    params: { slug: field.file.split('/').pop().replace('.md', '') },
+    props: { field },
+  }));
+}
+
+const { field } = Astro.props;
+---
+
+<BaseLayout title={field.frontmatter.title + " - Copypage"}>
+  <article class="max-w-3xl mx-auto px-4 py-16 prose lg:prose-lg">
+    <h1 class="text-4xl font-bold mb-4">{field.frontmatter.title}</h1>
+    <div class="mt-8">
+      <field.Content />
+    </div>
+  </article>
+</BaseLayout>
