@@ -1,13 +1,38 @@
 ---
 // Hero.astro
+import { Image } from 'astro:assets';
+import authorImage from '../assets/top-banner-author.webp';
 ---
 
-<section class="py-20 text-center">
-  <div class="max-w-4xl mx-auto px-4">
-    <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight">Elevate Your Copywriting</h1>
-    <p class="mt-4 text-xl text-gray-600">Professional writing services tailored to your technical and business needs.</p>
-    <div class="mt-8">
-      <a href="/contact" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition">Get Started</a>
+<section class="py-20 max-w-6xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
+  <div class="flex-1 text-center md:text-left">
+    <h1 class="text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight transition-colors duration-500">
+      Elevate Your <span id="changing-text" class="text-brand-gold transition-opacity duration-500">Web3</span> Copywriting
+    </h1>
+    <p class="mt-6 text-xl text-gray-600 dark:text-gray-300 transition-colors duration-500 leading-relaxed">  
+Hi, I’m Farid – a Creative Technical Copywriter Specializing in Web3, Crypto, AI, Fintech, Tech & Gaming. I craft engaging, SEO-optimized content that helps brands connect with their audience. Whether it’s blog posts, website copy, whitepapers, or marketing materials, I bring clarity and creativity to every project. Let’s collaborate to elevate your brand’s voice !</p>
+    <div class="mt-10">
+      <a href="/contact" class="bg-brand-gold text-gray-900 px-8 py-3.5 rounded-full font-bold hover:scale-105 transition-transform shadow-sm">Contact Me</a>
     </div>
   </div>
+  <div class="flex-1 flex justify-center md:justify-end">
+   <Image src={authorImage} alt="author image" class="w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl animate-float dark:drop-shadow-[0_0_30px_rgba(235,192,94,0.2)] transition-all duration-500"/>  
+  </div>
 </section>
+
+<script>
+  const words = ["Web3", "Fintech", "Narrative Design"];
+  let i = 0;
+  const el = document.getElementById("changing-text");
+  
+  if (el) {
+    setInterval(() => {
+      el.style.opacity = "0";
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.innerText = words[i];
+        el.style.opacity = "1";
+      }, 500); // Wait for fade out before changing text
+    }, 3000);
+  }
+</script>
