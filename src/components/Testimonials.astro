@@ -1,12 +1,240 @@
 ---
 // Testimonials.astro
+
+const testimonials = [
+  {
+    name: "Sarah Jenkins",
+    role: "Product Manager, TechFlow",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4",
+    message: "The copywriting services provided completely transformed our user engagement. The content is precise, technical, and approachable. A true game-changer.",
+    rating: 5,
+  },
+  {
+    name: "Marcus Aurelius",
+    role: "CEO, StoicCorp",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus&backgroundColor=c0aede",
+    message: "Clear, concise, and incredibly effective. Our conversion rates have seen a significant boost since we started working together. Highly recommended.",
+    rating: 5,
+  },
+  {
+    name: "Elena Rodriguez",
+    role: "Marketing Director, Nova",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena&backgroundColor=ffdfbf",
+    message: "The ability to distill complex technical concepts into engaging, easy-to-read copy is unparalleled. Outstanding work on our recent campaign.",
+    rating: 5,
+  },
+  {
+    name: "David Chen",
+    role: "Lead Developer, Syntax",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=David&backgroundColor=d1d4f9",
+    message: "Finally, a copywriter who understands the tech space. The documentation and guides were flawlessly written and easy for our users to follow.",
+    rating: 4,
+  },
+  {
+    name: "Aisha Patel",
+    role: "Founder, Innovate AI",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aisha&backgroundColor=c0aede",
+    message: "Incredible attention to detail and a fantastic grasp of our brand voice. The new website copy has elevated our entire online presence.",
+    rating: 5,
+  }
+];
+
+// Duplicate the array to create a seamless infinite loop
+const marqueeItems = [...testimonials, ...testimonials];
 ---
 
-<section class="py-16 bg-gray-50">
-  <div class="max-w-4xl mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold mb-8 text-gray-900">What Clients Say</h2>
-    <div class="p-8 bg-white rounded-2xl shadow-sm italic text-gray-700">
-      "The copywriting services provided completely transformed our user engagement. The content is precise, technical, and approachable."
+<section class="py-24 bg-zinc-900 overflow-hidden relative">
+  <!-- Subtle gradient background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-zinc-900 via-zinc-900/90 to-zinc-900 pointer-events-none z-10"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 text-center mb-16 relative z-20 flex flex-col items-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-zinc-100 tracking-tight">What Clients Say</h2>
+    <p class="text-zinc-400 max-w-2xl mx-auto mb-8">Feedback from folks I've had the pleasure of collaborating with.</p>
+    
+    <button 
+      id="open-testimonial-modal" 
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-100 text-zinc-900 font-medium hover:bg-white hover:scale-105 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      Leave a Testimonial
+    </button>
+  </div>
+
+  <div class="relative w-full flex overflow-x-hidden group z-20">
+    <div class="animate-marquee flex whitespace-nowrap group-hover:[animation-play-state:paused]">
+      {marqueeItems.map((item) => (
+        <div class="w-[350px] md:w-[400px] flex-none mx-4 p-8 rounded-3xl bg-zinc-800/50 border border-zinc-700/50 backdrop-blur-sm transition-transform hover:scale-[1.02] hover:bg-zinc-800/80">
+          <div class="flex items-center gap-4 mb-6">
+            <img 
+              src={item.image} 
+              alt={item.name} 
+              class="w-14 h-14 rounded-full object-cover border-2 border-zinc-700 bg-zinc-800"
+              loading="lazy"
+            />
+            <div class="text-left">
+              <h3 class="font-semibold text-zinc-100">{item.name}</h3>
+              <p class="text-sm text-zinc-400">{item.role}</p>
+            </div>
+          </div>
+          
+          <div class="flex mb-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg 
+                class={`w-5 h-5 ${i < item.rating ? 'text-amber-400' : 'text-zinc-600'}`} 
+                fill="currentColor" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+
+          <p class="text-zinc-300 text-left whitespace-normal leading-relaxed text-sm">
+            "{item.message}"
+          </p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
+
+<!-- Testimonial Modal -->
+<dialog id="testimonial-modal" class="backdrop:bg-black/80 backdrop:backdrop-blur-sm bg-transparent w-full max-w-lg p-0 m-auto rounded-2xl shadow-2xl open:animate-fade-in z-50">
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl w-full p-6 relative shadow-2xl text-zinc-100">
+    <button id="close-modal" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors" aria-label="Close modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <h3 class="text-2xl font-bold mb-6 tracking-tight text-center">Leave a Testimonial</h3>
+    
+    <form id="testimonial-form" class="space-y-4 text-left" action="https://formspree.io/f/your_form_id" method="POST">
+      <div>
+        <label for="name" class="block text-sm font-medium text-zinc-400 mb-1">Full Name</label>
+        <input type="text" id="name" name="name" required class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors text-zinc-100 placeholder-zinc-500" placeholder="Jane Doe">
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="role" class="block text-sm font-medium text-zinc-400 mb-1">Job Title</label>
+          <input type="text" id="role" name="role" required class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors text-zinc-100 placeholder-zinc-500" placeholder="Product Manager">
+        </div>
+        <div>
+          <label for="photo" class="block text-sm font-medium text-zinc-400 mb-1">Photo URL (Optional)</label>
+          <input type="url" id="photo" name="photo" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors text-zinc-100 placeholder-zinc-500" placeholder="https://...">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-zinc-400 mb-2">Rating</label>
+        <div class="flex gap-2" id="star-rating">
+          <!-- Stars generated by JS -->
+        </div>
+        <input type="hidden" name="rating" id="rating-input" value="5">
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-zinc-400 mb-1">Your Message</label>
+        <textarea id="message" name="message" required rows="4" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors text-zinc-100 placeholder-zinc-500 resize-none" placeholder="What was your experience like?"></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-zinc-100 text-zinc-900 font-bold rounded-lg px-4 py-3 mt-4 hover:bg-white transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+        Submit Testimonial
+      </button>
+      
+      <p class="text-xs text-zinc-500 text-center mt-4">
+        Need assistance? <a href="mailto:farid@example.com" class="text-amber-400 hover:text-amber-300 hover:underline transition-colors">Contact the developer</a>.
+      </p>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const openBtn = document.getElementById('open-testimonial-modal');
+  const closeBtn = document.getElementById('close-modal');
+  const modal = document.getElementById('testimonial-modal') as HTMLDialogElement;
+  const starContainer = document.getElementById('star-rating');
+  const ratingInput = document.getElementById('rating-input') as HTMLInputElement;
+
+  if (openBtn && closeBtn && modal) {
+    openBtn.addEventListener('click', () => {
+      modal.showModal();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.close();
+    });
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      const dialogDimensions = modal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        modal.close();
+      }
+    });
+  }
+
+  // Star Rating Logic
+  if (starContainer && ratingInput) {
+    let currentRating = 5;
+    
+    const renderStars = () => {
+      starContainer.innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const star = document.createElement('button');
+        star.type = 'button';
+        star.className = `w-8 h-8 transition-colors focus:outline-none ${i <= currentRating ? 'text-amber-400' : 'text-zinc-600'}`;
+        star.innerHTML = `<svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>`;
+        
+        star.addEventListener('click', () => {
+          currentRating = i;
+          ratingInput.value = i.toString();
+          renderStars();
+        });
+        
+        star.addEventListener('mouseenter', () => {
+          Array.from(starContainer.children).forEach((child, index) => {
+            if (index < i) {
+              child.classList.replace('text-zinc-600', 'text-amber-400');
+            } else {
+              child.classList.replace('text-amber-400', 'text-zinc-600');
+            }
+          });
+        });
+        
+        starContainer.appendChild(star);
+      }
+    };
+    
+    starContainer.addEventListener('mouseleave', renderStars);
+    renderStars();
+  }
+</script>
+
+<style>
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%); /* Move by 50% because we duplicated the array */
+    }
+  }
+
+  /* Reduce motion if user prefers */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation-play-state: paused;
+    }
+  }
+</style>
