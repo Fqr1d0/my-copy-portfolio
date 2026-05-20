@@ -1,32 +1,59 @@
 ---
 // FieldsGrid.astro
+const fields = [
+  { name: "Crypto", desc: "Deep dives into blockchain technology and Web3." },
+  { name: "Fintech", desc: "Clear communication for financial innovations." },
+  { name: "Gaming", desc: "Engaging narratives for the gaming industry." },
+  { name: "Web3", desc: "DeFi, NFTs, and decentralized protocols." },
+  { name: "AI", desc: "Demystifying artificial intelligence concepts." },
+];
 ---
 
-<section class="py-16">
+<section class="py-16 overflow-hidden">
   <div class="max-w-6xl mx-auto px-6">
     <h2 class="text-3xl font-bold mb-8 text-left bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400 dark:from-indigo-400 dark:to-primary">Industry Expertise</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="group bg-white/70 shadow-xl dark:bg-white/5 border border-gray-100 dark:border-white/10 dark:shadow-none backdrop-blur-md p-6 rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-        <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white flex items-center">
-          Crypto
-          <span class="inline-block w-2 h-2 rounded-full bg-[#EBC05E] group-hover:animate-ping ml-2"></span>
-        </h3>
-        <p class="text-gray-600 dark:text-gray-400">Deep dives into blockchain technology and Web3.</p>
-      </div>
-      <div class="group bg-white/70 shadow-xl dark:bg-white/5 border border-gray-100 dark:border-white/10 dark:shadow-none backdrop-blur-md p-6 rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-        <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white flex items-center">
-          Fintech
-          <span class="inline-block w-2 h-2 rounded-full bg-[#EBC05E] group-hover:animate-ping ml-2"></span>
-        </h3>
-        <p class="text-gray-600 dark:text-gray-400">Clear communication for financial innovations.</p>
-      </div>
-      <div class="group bg-white/70 shadow-xl dark:bg-white/5 border border-gray-100 dark:border-white/10 dark:shadow-none backdrop-blur-md p-6 rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-        <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white flex items-center">
-          Gaming
-          <span class="inline-block w-2 h-2 rounded-full bg-[#EBC05E] group-hover:animate-ping ml-2"></span>
-        </h3>
-        <p class="text-gray-600 dark:text-gray-400">Engaging narratives for the gaming industry.</p>
+    
+    <div class="relative w-auto flex overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_30px,_black_calc(100%-30px),transparent_100%)] md:[mask-image:_linear-gradient(to_right,transparent_0,_black_80px,_black_calc(100%-80px),transparent_100%)] -mx-4 md:-mx-[15%] px-4 md:px-[15%]">
+      <div id="fields-marquee" class="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap min-w-max gap-8 py-4 pr-8">
+        {[...fields, ...fields].map((field) => (
+          <div class="group w-80 bg-white/70 shadow-xl dark:bg-white/5 border border-gray-100 dark:border-white/10 dark:shadow-none backdrop-blur-md p-6 rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 whitespace-normal">
+            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white flex items-center">
+              {field.name}
+              <span class="inline-block w-2 h-2 rounded-full bg-[#EBC05E] group-hover:animate-ping ml-2"></span>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">{field.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  {
+    const marquee = document.getElementById('fields-marquee');
+    if (marquee) {
+      let timeoutId: number | undefined;
+      const pauseHandler = () => {
+        marquee.style.animationPlayState = 'paused';
+        clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+          marquee.style.animationPlayState = '';
+        }, 5000);
+      };
+      
+      marquee.addEventListener('touchstart', pauseHandler, { passive: true });
+      marquee.addEventListener('wheel', pauseHandler, { passive: true });
+    }
+  }
+</script>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+</style>
