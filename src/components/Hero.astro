@@ -11,10 +11,36 @@ import authorImage from '../assets/top-banner-author.webp';
     </h1>
     <p class="mt-6 text-xl text-gray-600 dark:text-gray-300 transition-colors duration-500 leading-relaxed">  
 Hi, I’m Farid ADOI – a Creative Technical Copywriter Specializing in Web3, Crypto, AI, Fintech, Tech & Gaming. I craft engaging, SEO-optimized content that helps brands connect with their audience. Whether it’s blog posts, website copy, whitepapers, or marketing materials, I bring clarity and creativity to every project. Let’s collaborate to elevate your brand’s voice !</p>
-    <div class="mt-10">
+    <div class="mt-10 flex flex-wrap justify-center md:justify-start gap-6 items-center mb-5">
       <a href="/contact" class="bg-brand-gold text-gray-900 px-8 py-3.5 rounded-full font-bold hover:scale-105 transition-transform shadow-sm">Start a Project</a>
-    </div>
-  </div>
+      
+      <div class="relative group cursor-default w-auto">
+        <!-- Spotlight Glow Effect -->
+        <div class="absolute -inset-1 rounded-full bg-brand-gold/30 blur-lg animate-pulse transition-all duration-300 group-hover:bg-brand-gold/40 group-hover:blur-xl"></div>
+        
+        <!-- Main Content -->
+        <div class="relative flex items-center gap-3 rounded-full border border-brand-gold/30 dark:border-brand-gold/20 bg-white/70 dark:bg-gray-800/70 px-6 py-3 shadow-sm backdrop-blur-xl transition-all duration-300 group-hover:border-brand-gold/60 group-hover:bg-brand-gold/10 dark:group-hover:bg-brand-gold/20">
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-gold/20 text-brand-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="animate-[pulse_3s_ease-in-out_infinite]">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <p class="text-base text-gray-800 dark:text-gray-200 font-medium tracking-wide">
+            <span class="text-brand-gold font-extrabold drop-shadow-sm">-50% OFF</span> for first 200 projects
+          </p>
+        </div>
+
+        <!-- Remaining spots text, positioned absolutely to not disrupt flex alignment -->
+        <p class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-6 w-max text-sm text-gray-500 dark:text-gray-400 font-medium flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
+          </span>
+          Remain <span class="font-bold text-gray-800 dark:text-gray-200">199 places</span>
+        </p>
+      </div>
+    </div>    
+  </div>  
   <div class="flex-1 flex justify-center md:justify-end">
    <Image src={authorImage} alt="author image" class="w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl animate-float dark:drop-shadow-[0_0_30px_rgba(235,192,94,0.2)] transition-all duration-500"/>  
   </div>
