@@ -14,7 +14,7 @@ const fields = [
     <h2 class="text-3xl font-bold mb-8 text-left bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400 dark:from-indigo-400 dark:to-primary">Industry Expertise</h2>
     
     <div class="relative w-auto flex overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_30px,_black_calc(100%-30px),transparent_100%)] md:[mask-image:_linear-gradient(to_right,transparent_0,_black_80px,_black_calc(100%-80px),transparent_100%)] -mx-4 md:-mx-[15%] px-4 md:px-[15%]">
-      <div id="fields-marquee" class="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap min-w-max gap-8 py-4 pr-8">
+      <div id="fields-marquee" class="flex animate-marquee whitespace-nowrap min-w-max gap-8 py-4 pr-8">
         {[...fields, ...fields].map((field) => (
           <div class="group w-80 bg-white/70 shadow-xl dark:bg-white/5 border border-gray-100 dark:border-white/10 dark:shadow-none backdrop-blur-md p-6 rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 whitespace-normal">
             <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white flex items-center">
@@ -39,9 +39,10 @@ const fields = [
         clearTimeout(timeoutId);
         timeoutId = window.setTimeout(() => {
           marquee.style.animationPlayState = '';
-        }, 5000);
+        }, 4000);
       };
       
+      marquee.addEventListener('mouseenter', pauseHandler, { passive: true });
       marquee.addEventListener('touchstart', pauseHandler, { passive: true });
       marquee.addEventListener('wheel', pauseHandler, { passive: true });
     }

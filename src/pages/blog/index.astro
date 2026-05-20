@@ -1,6 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const posts = await Astro.glob('../../content/blog/*.md');
+
+interface Frontmatter {
+  title?: string;
+  description?: string;
+}
+
+interface MarkdownPost {
+  frontmatter: Frontmatter;
+  file: string;
+}
+
+const posts = Object.values(
+  import.meta.glob<MarkdownPost>('../../content/blog/*.md', { eager: true })
+);
 ---
 
 <BaseLayout title="Blog - Copypage">
@@ -9,7 +22,7 @@ const posts = await Astro.glob('../../content/blog/*.md');
     <ul class="space-y-4">
       {posts.map((post) => (
         <li class="bg-white p-6 shadow rounded-lg border">
-          <a href={`/blog/${post.file.split('/').pop().replace('.md', '')}`} class="text-2xl font-semibold text-primary hover:underline">
+          <a href={`/blog/${post.file.split('/').pop()?.replace('.md', '')}`} class="text-2xl font-semibold text-primary hover:underline">
             {post.frontmatter.title || 'Untitled Post'}
           </a>
           <p class="mt-2 text-gray-600">{post.frontmatter.description}</p>
