@@ -1,0 +1,67 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+
+async function submitData() {
+  const url = `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}/${import.meta.env.AIRTABLE_TABLE_ID || 'may-to-june'}`;
+  
+  const payload = {
+    "records": [
+      {
+        "fields": {
+          "Full Name": "No name",
+          "Email Address": "[EMAIL_ADDRESS]",
+          "Topic / Industry": "Web3",
+          "Timeline / Duration": "2 weeks",
+          "Project Scope & Brief": "Tell me about what you need...",
+          "Attach a file (PDF or Image) (Optional)": ""
+        }
+      }
+    ]
+  };
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${import.meta.env.AIRTABLE_TOKEN}`,
+    },
+    body: JSON.stringify(payload),
+  };
+  
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    console.log('Success:', result);
+  } catch (error) {
+    console.error('Error submitting data:', error);
+  }
+}
+// submitData();
+
+async function getData() {
+  const url = `https://api.airtable.com/v0/${import.meta.env.AIRTABLE_BASE_ID}/${import.meta.env.AIRTABLE_TABLE_ID || 'may-to-june'}`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${import.meta.env.AIRTABLE_TOKEN}`,
+    },
+  };
+  
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error getting data:', error);
+    return { records: [] };
+  }
+}
+
+// NOTE: We commented out the automatic calls to these functions so they don't run 
+// every time the page loads and cause Authentication errors in the terminal.
+// const fetchedData = await getData();
+// const dataObject = fetchedData.records ? fetchedData.records.map((record:any) => record.fields) : [];
+// console.log('Data Object:', dataObject);
+---

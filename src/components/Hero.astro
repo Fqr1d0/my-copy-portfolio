@@ -2,6 +2,7 @@
 // Hero.astro
 import { Image } from 'astro:assets';
 import authorImage from '../assets/top-banner-author.webp';
+import Dataexchanged from './process/Dataexchanged.astro';
 ---
 
 <section class="py-20 max-w-6xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8">
@@ -55,8 +56,21 @@ Hi, I’m Farid ADOI – a Creative Technical Copywriter Specializing in Web3, C
 
     <h3 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight">Let's build something great.</h3>
     <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm md:text-base">Fill out the brief below and I'll get back to you within 24 hours.</p>
+
+    {Astro.url.searchParams.get('success') === 'true' && (
+      <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800/50 flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span class="font-medium">Thanks! I'll get back to you within 24 hours.</span>
+      </div>
+    )}
+    {Astro.url.searchParams.get('error') && (
+      <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800/50 flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span class="font-medium">Something went wrong. Please try again or email me directly.</span>
+      </div>
+    )}
     
-    <form id="project-form" class="space-y-4 text-left" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" enctype="multipart/form-data">
+    <form id="project-form" class="space-y-4 text-left" action="/api/submit" method="POST" enctype="multipart/form-data">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label for="client-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
@@ -155,7 +169,21 @@ Hi, I’m Farid ADOI – a Creative Technical Copywriter Specializing in Web3, C
         e.clientY > dialogDimensions.bottom
       ) {
         projectModal.close();
+        
+        // Clear URL params if modal is closed so it doesn't reopen on reload
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('success') || url.searchParams.has('error')) {
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          window.history.replaceState({}, '', url);
+        }
       }
     });
+
+    // Auto-open if success or error parameter is in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success') || urlParams.has('error')) {
+      projectModal.showModal();
+    }
   }
 </script>
