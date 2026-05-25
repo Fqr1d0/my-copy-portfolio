@@ -1,10 +1,264 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactForm from '../components/ContactForm.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
 ---
 
-<BaseLayout title="Contact - Copypage">
-  <div class="py-8">
-    <ContactForm />
+<BaseLayout title="Contact & Hire - Copypage">
+  <div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div
+        class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-bold rounded-full uppercase tracking-wider mb-6"
+      >
+        Let's Work Together
+      </div>
+      <h1
+        class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight"
+      >
+        Get In Touch
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Whether you're looking for a quick strategy call, a fixed project, or a
+        long-term partnership, I'm here to help you scale your narrative.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      {/* Left Column: The Form */}
+      <div class="lg:col-span-7 xl:col-span-8 space-y-8">
+        {/* Instructional Box */}
+        <div
+          class="bg-gray-50 dark:bg-gray-800/50 border border-brand-gold/30 rounded-2xl p-6 md:p-8 shadow-sm"
+        >
+          <h3
+            class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-brand-gold"
+              ><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"
+              ></path><path d="M12 8h.01"></path></svg
+            >
+            How to reach out:
+          </h3>
+          <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-brand-gold mt-1 shrink-0"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+              <div>
+                <strong class="text-gray-900 dark:text-gray-300"
+                  >For Fixed Projects:</strong
+                > If you know exactly what you need — like a Whitepaper, Landing Page,
+                or Project Documentation — please <button
+                  data-open-modal
+                  data-service="General"
+                  class="text-brand-gold font-bold hover:underline"
+                  >Book a Project</button
+                > directly. Provide your name, project type, word count or scope,
+                and preferred timeline.
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-brand-gold mt-1 shrink-0"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+              <div>
+                <strong class="text-gray-900 dark:text-gray-300"
+                  >Retainers & Hiring:</strong
+                > If you're looking for a permanent, partial, or temporary hire, please
+                use the form below. Include details about the role, key responsibilities,
+                and specific tasks you expect me to perform.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* Form Component */}
+        <ContactForm />
+      </div>
+
+      {/* Right Column: Socials & Video Call */}
+      <div class="lg:col-span-5 xl:col-span-4 space-y-8 sticky top-32">
+        {/* Video Call CTA */}
+        <div
+          class="bg-brand-gold/10 border border-brand-gold/30 rounded-3xl p-8 text-center relative overflow-hidden group"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-brand-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          >
+          </div>
+          <div
+            class="w-16 h-16 mx-auto bg-brand-gold text-gray-900 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-brand-gold/30 transform group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="m22 8-6 4 6 4V8Z"></path><rect
+                width="14"
+                height="12"
+                x="2"
+                y="6"
+                rx="2"
+                ry="2"></rect></svg
+            >
+          </div>
+          <h3
+            class="text-2xl font-bold text-gray-900 dark:text-white mb-2 relative z-10"
+          >
+            Strategy Session
+          </h3>
+          <p
+            class="text-sm text-gray-600 dark:text-gray-400 mb-8 relative z-10"
+          >
+            Book a 30-minute video call to discuss your content needs
+            face-to-face.
+          </p>
+          <a
+            href="https://calendly.com/souroufaridadoi0/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block w-full bg-brand-gold text-gray-900 font-bold py-3.5 rounded-xl hover:bg-brand-gold/90 transition-colors shadow-sm relative z-10"
+          >
+            Book via Calendly
+          </a>
+        </div>
+
+        {/* Social Links */}
+        <div
+          class="bg-white dark:bg-gray-900 border border-gray-100 dark:border-white/10 rounded-3xl p-8 shadow-sm"
+        >
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6">
+            Connect With Me
+          </h3>
+
+          <div class="space-y-4">
+            <a
+              href="https://www.linkedin.com/in/farid-sourou"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:bg-[#0077b5] group-hover:text-white transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  ></path><rect width="4" height="12" x="2" y="9"></rect><circle
+                    cx="4"
+                    cy="4"
+                    r="2"></circle></svg
+                >
+              </div>
+              <div>
+                <div class="font-bold text-gray-900 dark:text-white">
+                  LinkedIn
+                </div>
+                <div class="text-xs text-gray-500">@faridadoi</div>
+              </div>
+            </a>
+
+            <a
+              href="https://x.com/AdoiFarid"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:bg-black group-hover:text-white transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  ><path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.007 4.15H5.078z"
+                  ></path></svg
+                >
+              </div>
+              <div>
+                <div class="font-bold text-gray-900 dark:text-white">
+                  X
+                </div>
+                <div class="text-xs text-gray-500">@faridadoi</div>
+              </div>
+            </a>
+
+            <a
+              href="mailto:souroufaridadoi0@gmail.com"
+              class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:bg-brand-gold group-hover:text-gray-900 transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+                    d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+                >
+              </div>
+              <div>
+                <div class="font-bold text-gray-900 dark:text-white">Email</div>
+                <div class="text-xs text-gray-500">Send me a direct email</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </BaseLayout>

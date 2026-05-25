@@ -2,21 +2,68 @@
 // ContactForm.astro
 ---
 
-<section class="py-16 max-w-xl mx-auto px-4">
-  <h2 class="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
-  <form class="space-y-4 bg-white p-6 rounded-xl shadow border border-gray-100 bg-none">
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Name</label>
-      <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="Your Name" />
+<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 md:p-8 shadow-sm">
+  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Send Me a Message</h2>
+  
+  <form class="space-y-5" action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+    <!-- Web3Forms Access Key (Replace YOUR_ACCESS_KEY_HERE with your actual key from web3forms.com) -->
+    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Full Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          required
+          class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors" 
+          placeholder="John Doe" 
+        />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required
+          class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors" 
+          placeholder="john@example.com" 
+        />
+      </div>
     </div>
+
     <div>
-      <label class="block text-sm font-medium text-gray-700">Email</label>
-      <input type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="you@example.com" />
+      <label for="subject" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Subject</label>
+      <input 
+        type="text" 
+        id="subject" 
+        name="subject" 
+        required
+        class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors" 
+        placeholder="e.g. Part-time Content Strategist Role" 
+      />
     </div>
+
     <div>
-      <label class="block text-sm font-medium text-gray-700">Message</label>
-      <textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" placeholder="Your message..."></textarea>
+      <label for="message" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Message Details</label>
+      <textarea 
+        id="message" 
+        name="message" 
+        rows="6" 
+        required
+        class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors resize-none" 
+        placeholder="Please include details about the role, key responsibilities, and specific tasks you expect me to perform..."
+      ></textarea>
     </div>
-    <button type="button" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition">Send Message</button>
+
+    <button 
+      type="submit" 
+      class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-3.5 px-6 rounded-xl hover:bg-brand-gold hover:text-gray-900 dark:hover:bg-brand-gold transition-colors flex items-center justify-center gap-2 group"
+    >
+      Send Message
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+    </button>
   </form>
-</section>
+</div>

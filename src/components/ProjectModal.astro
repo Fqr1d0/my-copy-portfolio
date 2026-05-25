@@ -1,0 +1,142 @@
+---
+// ProjectModal.astro
+---
+
+<!-- Project Request Modal -->
+<dialog id="project-modal" class="backdrop:bg-black/80 backdrop:backdrop-blur-sm bg-transparent w-full max-w-2xl p-0 m-auto rounded-2xl shadow-2xl open:animate-fade-in z-50">
+  <div class="bg-white dark:bg-gray-900 border border-gray-100 dark:border-white/10 rounded-2xl w-full p-6 md:p-8 relative shadow-2xl text-gray-900 dark:text-white transition-colors duration-500">
+    <button id="close-project-modal" class="absolute top-5 right-5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" aria-label="Close modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <h3 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight">Let's build something great.</h3>
+    <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm md:text-base">Fill out the brief below and I'll get back to you within 24 hours.</p>
+
+    {Astro.url.searchParams.get('success') === 'true' && (
+      <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800/50 flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span class="font-medium">Thanks! I'll get back to you within 24 hours.</span>
+      </div>
+    )}
+    {Astro.url.searchParams.get('error') && (
+      <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800/50 flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span class="font-medium">Something went wrong. Please try again or email me directly.</span>
+      </div>
+    )}
+    
+    <form id="project-form" class="space-y-4 text-left" action="/api/submit" method="POST" enctype="multipart/form-data">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="client-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+          <input type="text" id="client-name" name="name" required class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white placeholder-gray-400" placeholder="Jane Doe">
+        </div>
+        <div>
+          <label for="client-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+          <input type="email" id="client-email" name="email" required class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white placeholder-gray-400" placeholder="jane@company.com">
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="project-topic" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Topic / Industry</label>
+          <select id="project-topic" name="topic" required class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white appearance-none">
+            <option value="" disabled selected>Select an industry...</option>
+            <option value="Web3">Web3</option>
+            <option value="Fintech">Fintech</option>
+            <option value="AI">AI</option>
+            <option value="Gaming">Gaming</option>
+            <option value="Tech">Tech</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="project-timeline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Timeline / Duration</label>
+          <input type="text" id="project-timeline" name="timeline" required class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white placeholder-gray-400" placeholder="e.g. 2 weeks, 1 month, ASAP">
+        </div>
+      </div>
+
+      <div>
+        <label for="project-scope" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Project Scope & Brief</label>
+        <textarea id="project-scope" name="scope" required rows="3" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white placeholder-gray-400 resize-none" placeholder="Tell me about what you need..."></textarea>
+      </div>
+
+      <div>
+        <label for="project-file" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Attach a file (PDF or Image) <span class="text-gray-400 dark:text-gray-500 font-normal">(Optional)</span></label>
+        <input type="file" id="project-file" name="attachment" accept=".pdf,image/*" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-gray-300 text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/20 file:text-brand-gold hover:file:bg-brand-gold/30 cursor-pointer">
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+        <a href="/pricing" class="text-sm font-medium text-gray-500 hover:text-brand-gold transition-colors dark:text-gray-400 dark:hover:text-brand-gold flex items-center gap-1 group">
+          Not ready yet? View transparent rates 
+          <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+        <button type="submit" class="w-full sm:w-auto bg-brand-gold text-gray-900 font-bold rounded-full px-8 py-3 hover:scale-105 transition-transform shadow-sm hover:shadow-brand-gold/30">
+          Submit Project
+        </button>
+      </div>
+      
+    </form>
+  </div>
+</dialog>
+
+<script>
+  // Modal logic
+  const closeProjectBtn = document.getElementById('close-project-modal');
+  const projectModal = document.getElementById('project-modal') as HTMLDialogElement;
+
+  if (projectModal) {
+    // Listen for any clicks on elements with the 'data-open-modal' attribute
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      // Also check if a child of a button was clicked (like an icon)
+      const button = target.closest('[data-open-modal]');
+      
+      if (button) {
+        e.preventDefault();
+        
+        // Optional: Pre-fill the scope textarea based on data-service attribute
+        const service = button.getAttribute('data-service');
+        const scopeTextarea = document.getElementById('project-scope') as HTMLTextAreaElement;
+        if (service && scopeTextarea) {
+          scopeTextarea.value = `I am interested in booking a ${service} project...\n\n`;
+        }
+
+        projectModal.showModal();
+      }
+    });
+
+    if (closeProjectBtn) {
+      closeProjectBtn.addEventListener('click', () => {
+        projectModal.close();
+      });
+    }
+
+    // Close on backdrop click
+    projectModal.addEventListener('click', (e) => {
+      const dialogDimensions = projectModal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        projectModal.close();
+        
+        // Clear URL params if modal is closed so it doesn't reopen on reload
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('success') || url.searchParams.has('error')) {
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          window.history.replaceState({}, '', url);
+        }
+      }
+    });
+
+    // Auto-open if success or error parameter is in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success') || urlParams.has('error')) {
+      projectModal.showModal();
+    }
+  }
+</script>

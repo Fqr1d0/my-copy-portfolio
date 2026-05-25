@@ -1,20 +1,349 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const fields = await Astro.glob('../../content/fields/*.md');
 ---
 
-<BaseLayout title="Fields - Copypage">
-  <div class="max-w-7xl mx-auto px-4 py-16">
-    <h1 class="text-4xl font-bold mb-8">Professional Fields</h1>
-    <ul class="space-y-4">
-      {fields.map((field) => (
-        <li class="bg-white p-6 shadow rounded-lg border">
-          <a href={`/fields/${field.file.split('/').pop().replace('.md', '')}`} class="text-2xl font-semibold text-primary hover:underline">
-            {field.frontmatter.title || 'Untitled Field'}
+<BaseLayout title="Pricing & Services - Copypage">
+  <div class="max-w-6xl mx-auto px-4 py-16 sm:py-24">
+    
+    {/* Promotional Band */}
+    <div class="mb-16 bg-brand-gold/10 dark:bg-brand-gold/5 border border-brand-gold/30 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+      <div class="flex-1">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <span class="inline-block bg-brand-gold text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider mr-2 mb-1 align-middle">Limited Time</span>
+          Introductory Pricing
+        </h2>
+        <p class="text-gray-700 dark:text-gray-300">
+          Save 50% on the first 200 projects. Rates will increase significantly after this milestone is reached.
+        </p>
+      </div>
+      <div class="w-full md:w-72 bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm">
+        <div class="flex justify-between text-sm font-medium text-gray-900 dark:text-white mb-2">
+          <span>Projects Booked</span>
+          <span class="text-brand-gold font-bold">4 / 200</span>
+        </div>
+        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5">
+          <div class="bg-brand-gold h-2.5 rounded-full" style="width: 1%"></div>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-right">Only 196 spots remaining</p>
+      </div>
+    </div>
+
+    {/* Header */}
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">Services & Packages</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Transparent deliverables, precise word counts, and clear monetization strategies. Choose the package that fits your goals.
+      </p>
+    </div>
+
+    {/* Project Estimator Simulator */}
+    <div class="max-w-3xl mx-auto mb-20 bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-white/10 shadow-lg relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+        Quick Project Estimator
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Service Type</label>
+          <select id="sim-service" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 text-gray-900 dark:text-white">
+            <option value="blog">Blog Posts ($0.25/word)</option>
+            <option value="copy">Website Copy ($175/page)</option>
+            <option value="whitepaper">Whitepapers ($464/project)</option>
+            <option value="docs">Project Documentation ($290/project)</option>
+          </select>
+        </div>
+        
+        <div id="sim-quantity-container">
+          <label id="sim-quantity-label" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Word Count</label>
+          <div class="relative">
+            <input type="number" id="sim-quantity" value="1000" min="1" step="100" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 text-gray-900 dark:text-white">
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-500 dark:text-gray-400" id="sim-disclaimer">Includes affiliate links or redirects if requested.</p>
+        <div class="text-right">
+          <div class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Estimated Total</div>
+          <div class="text-4xl font-bold text-gray-900 dark:text-white"><span class="text-brand-gold">$</span><span id="sim-total">250.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const serviceSelect = document.getElementById('sim-service');
+        const quantityInput = document.getElementById('sim-quantity');
+        const quantityLabel = document.getElementById('sim-quantity-label');
+        const totalDisplay = document.getElementById('sim-total');
+        const disclaimer = document.getElementById('sim-disclaimer');
+
+        const rates = {
+          blog: { price: 0.25, label: 'Word Count', default: 1000, step: 100, text: 'Includes affiliate links or redirects if requested.' },
+          copy: { price: 175, label: 'Number of Pages', default: 1, step: 1, text: 'Includes redirects/CTAs integrated for conversions.' },
+          whitepaper: { price: 464, label: 'Number of Projects', default: 1, step: 1, text: 'Research-driven, credibility-focused (no affiliate links).' },
+          docs: { price: 290, label: 'Number of Projects', default: 1, step: 1, text: 'Includes user guides, API docs, internal manuals.' }
+        };
+
+        function calculate() {
+          const service = serviceSelect.value;
+          const config = rates[service];
+          let qty = parseFloat(quantityInput.value) || 0;
+          if(qty < 0) qty = 0;
+          
+          const total = config.price * qty;
+          
+          // Format with commas and 2 decimals
+          totalDisplay.textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        serviceSelect.addEventListener('change', (e) => {
+          const config = rates[e.target.value];
+          quantityLabel.textContent = config.label;
+          quantityInput.value = config.default;
+          quantityInput.step = config.step;
+          disclaimer.textContent = config.text;
+          calculate();
+        });
+
+        quantityInput.addEventListener('input', calculate);
+        
+        // Initial calc
+        calculate();
+      });
+    </script>
+
+    {/* Service Cards Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+      
+      {/* Card 1: Blog Posts */}
+      <div class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full relative group">
+        <div class="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-gold transition-colors">Blog Posts</h3>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white my-2">$0.25<span class="text-sm font-normal text-gray-500"> / word</span></div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            2 Revisions Included
+          </div>
+        </div>
+        <div class="flex-grow space-y-4 text-sm">
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Word Count</h4>
+            <p class="text-gray-600 dark:text-gray-400">800–1,200 (short SEO)<br/>1,500–2,000 (deep dive)</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Visuals</h4>
+            <p class="text-gray-600 dark:text-gray-400">2–4 images per article</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200 mb-1 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Extras Included
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400 text-xs">Affiliate links or redirects available if requested.</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="#" data-open-modal data-service="Blog Posts" class="block w-full text-center bg-gray-50 dark:bg-gray-800 hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold text-gray-900 dark:text-white font-medium py-2.5 px-4 rounded-lg transition-colors border border-gray-200 dark:border-gray-700 hover:border-brand-gold text-sm">
+            Book Now
           </a>
-          <p class="mt-2 text-gray-600">{field.frontmatter.description}</p>
-        </li>
-      ))}
-    </ul>
+        </div>
+      </div>
+
+      {/* Card 2: Website Copy */}
+      <div class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-md hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold transition-all duration-300 h-full relative group transform scale-100 md:scale-105 z-10">
+        <div class="absolute top-0 right-0 bg-brand-gold text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Popular</div>
+        <div class="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-gold transition-colors">Website Copy</h3>
+          <div class="text-3xl font-bold text-brand-gold my-2">$175<span class="text-sm font-normal text-gray-500"> / page</span></div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            2 Revisions Included
+          </div>
+        </div>
+        <div class="flex-grow space-y-4 text-sm">
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Word Count</h4>
+            <p class="text-gray-600 dark:text-gray-400">300–500 words per page</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Visuals</h4>
+            <p class="text-gray-600 dark:text-gray-400">1–2 images per page</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200 mb-1 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Extras Included
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400 text-xs">Redirects/CTAs integrated directly for conversions.</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="#" data-open-modal data-service="Website Copy" class="block w-full text-center bg-gray-900 dark:bg-white hover:bg-brand-gold dark:hover:bg-brand-gold text-white dark:text-gray-900 dark:hover:text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-sm text-sm">
+            Book Now
+          </a>
+        </div>
+      </div>
+
+      {/* Card 3: Whitepapers */}
+      <div class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full relative group">
+        <div class="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-gold transition-colors">Whitepapers</h3>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white my-2">$464<span class="text-sm font-normal text-gray-500"> / project</span></div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            3 Revisions Included
+          </div>
+        </div>
+        <div class="flex-grow space-y-4 text-sm">
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Word Count</h4>
+            <p class="text-gray-600 dark:text-gray-400">2,500–5,000 words</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Visuals</h4>
+            <p class="text-gray-600 dark:text-gray-400">3–6 data charts / graphics</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200 mb-1 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Extras Included
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400 text-xs">Research-driven, credibility-focused (no affiliate links).</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="#" data-open-modal data-service="Whitepapers" class="block w-full text-center bg-gray-50 dark:bg-gray-800 hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold text-gray-900 dark:text-white font-medium py-2.5 px-4 rounded-lg transition-colors border border-gray-200 dark:border-gray-700 hover:border-brand-gold text-sm">
+            Book Now
+          </a>
+        </div>
+      </div>
+
+      {/* Card 4: Project Documentation */}
+      <div class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full relative group">
+        <div class="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-gold transition-colors">Documentation</h3>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white my-2">$290<span class="text-sm font-normal text-gray-500"> / project</span></div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            3 Revisions Included
+          </div>
+        </div>
+        <div class="flex-grow space-y-4 text-sm">
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Word Count</h4>
+            <p class="text-gray-600 dark:text-gray-400">1,500–3,000 words</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Visuals</h4>
+            <p class="text-gray-600 dark:text-gray-400">2–3 UI flow diagrams</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200 mb-1 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Extras Included
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400 text-xs">User guides, API docs, internal manuals perfectly formatted.</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="#" data-open-modal data-service="Project Documentation" class="block w-full text-center bg-gray-50 dark:bg-gray-800 hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold text-gray-900 dark:text-white font-medium py-2.5 px-4 rounded-lg transition-colors border border-gray-200 dark:border-gray-700 hover:border-brand-gold text-sm">
+            Book Now
+          </a>
+        </div>
+      </div>
+      
+      {/* Card 5: Marketing Campaigns */}
+      <div class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full relative group md:col-span-2 lg:col-span-1">
+        <div class="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-brand-gold transition-colors">Marketing Campaigns</h3>
+          <div class="text-2xl font-bold text-gray-900 dark:text-white my-3">Custom Quote</div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Discussed in Inbox
+          </div>
+        </div>
+        <div class="flex-grow space-y-4 text-sm">
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200">Scope</h4>
+            <p class="text-gray-600 dark:text-gray-400">Full funnel copywriting, email sequences, and ad creatives tailored to your launch.</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-gray-200 mb-1 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Extras Included
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400 text-xs">Designed specifically for measurable impact and high ROI.</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="/contact" class="block w-full text-center bg-gray-50 dark:bg-gray-800 hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold text-gray-900 dark:text-white font-medium py-2.5 px-4 rounded-lg transition-colors border border-gray-200 dark:border-gray-700 hover:border-brand-gold text-sm">
+            Contact Me
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Wrapped Table FAQ Section */}
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-10 text-center">Process & Policies</h2>
+      
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+        <table class="w-full text-left border-collapse">
+          <tbody>
+            <tr class="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <th class="py-6 px-6 md:px-8 w-1/3 align-top">
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                  <span class="font-bold text-gray-900 dark:text-white">Visual Strategy</span>
+                </div>
+              </th>
+              <td class="py-6 px-6 md:px-8 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                We strictly adhere to a suggested visual limit per article or page. This intentional constraint keeps the content engaging and readable without bloating the design or slowing down your page load times. Quality and relevance always supersede quantity.
+              </td>
+            </tr>
+            
+            <tr class="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <th class="py-6 px-6 md:px-8 w-1/3 align-top">
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                  <span class="font-bold text-gray-900 dark:text-white">Affiliate Links</span>
+                </div>
+              </th>
+              <td class="py-6 px-6 md:px-8 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                If monetization is your goal, affiliate links work wonders in Blog Posts. However, for Whitepapers and Documentation, we strictly avoid them to preserve your brand's authority and credibility.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <th class="py-6 px-6 md:px-8 w-1/3 align-top">
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-gold"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                  <span class="font-bold text-gray-900 dark:text-white">Payment Flow</span>
+                </div>
+              </th>
+              <td class="py-6 px-6 md:px-8 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                <ul class="space-y-3 mb-4">
+                  <li class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span><strong>Smaller Gigs:</strong> Requires full payment upfront or a 50/50 split.</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span><strong>Larger Projects:</strong> Milestone billing progressing through Research → Draft → Final delivery.</span>
+                  </li>
+                </ul>
+                <div class="inline-block px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  Standard Terms: 50% upfront, remainder upon delivery.
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </BaseLayout>
