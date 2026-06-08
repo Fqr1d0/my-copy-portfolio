@@ -6,8 +6,8 @@
   <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Send Me a Message</h2>
   
   <form class="space-y-5" action="https://api.web3forms.com/submit" method="POST" id="contact-form">
-    <!-- Web3Forms Access Key (Replace YOUR_ACCESS_KEY_HERE with your actual key from web3forms.com) -->
-    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_CONTACT_KEY}>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div>

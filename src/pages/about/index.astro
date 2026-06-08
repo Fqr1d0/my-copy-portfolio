@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import authorImage from '../../assets/top-banner-author.webp';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import authorImage from "../../assets/top-banner-author.webp";
 
 interface Frontmatter {
   title?: string;
@@ -16,121 +16,326 @@ interface MarkdownPost {
 }
 
 const posts = Object.values(
-  import.meta.glob<MarkdownPost>('../../content/blog/*.md', { eager: true })
+  import.meta.glob<MarkdownPost>("../../content/blog/*.md", { eager: true }),
 );
 ---
 
 <BaseLayout title="About Me - Copypage">
-  
   {/* SECTION 1: Hero / Presenting Myself */}
-  <section class="max-w-6xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row-reverse items-center gap-12 md:gap-16">
+  <section
+    class="max-w-6xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row-reverse items-center gap-12 md:gap-16"
+  >
     <div class="flex-1 text-center md:text-left">
-      <div class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-bold rounded-full uppercase tracking-wider mb-6">
+      <div
+        class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-bold rounded-full uppercase tracking-wider mb-6"
+      >
         Who I Am
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">
-        Building trust through <span class="text-brand-gold relative inline-block">
-          clear narrative
-          <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-gold/30" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="transparent"/></svg>
-        </span>
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight"
+      >
+        A Trust Builder through <span
+          class="text-brand-gold relative inline-block"
+        >
+          Clear narrative
+          <svg
+            class="absolute w-full h-3 -bottom-1 left-0 text-brand-gold/30 overflow-visible"
+            viewBox="0 0 100 10"
+            preserveAspectRatio="none"
+            ><path
+              d="M0 5 Q 50 10 100 5"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="transparent"
+              class="animate-draw-line"
+              ></path></svg
+          >
+        </span></span>
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto md:mx-0">
-        I believe that the best technical writing doesn't just inform—it connects. My mission is to translate complex technologies (Web3, AI, Fintech) into compelling stories that establish authority, build professional identity, and convert readers into loyal clients.
+      <p
+        class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto md:mx-0"
+      >
+        I believe that the best technical writing doesn't just inform—it
+        connects. My mission is to translate complex technologies (Web3, AI,
+        Fintech) into compelling stories that establish authority, build
+        professional identity, and convert readers into loyal clients.
       </p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-        <a href="https://calendly.com/souroufaridadoi0/30min" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 bg-brand-gold text-gray-900 px-8 py-3.5 rounded-full font-bold hover:scale-105 transition-transform shadow-sm cursor-pointer">
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+      >
+        <a
+          href="https://calendly.com/souroufaridadoi0/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex justify-center items-center gap-2 bg-brand-gold text-gray-900 px-8 py-3.5 rounded-full font-bold hover:scale-105 transition-transform shadow-sm cursor-pointer"
+        >
           Let's Talk Strategy
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+          >
         </a>
       </div>
     </div>
-    
+
     <div class="flex-1 relative w-full max-w-md mx-auto">
-      <div class="absolute inset-0 bg-brand-gold/20 rounded-3xl blur-2xl transform translate-y-4 -translate-x-4"></div>
-      <div class="relative rounded-3xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-2xl">
-        <Image src={authorImage} alt="Farid ADOI - Technical Writer" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" />
+      <div
+        class="absolute inset-0 bg-brand-gold/20 rounded-3xl blur-2xl transform translate-y-4 -translate-x-4"
+      >
+      </div>
+      <div
+        class="relative rounded-3xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-2xl"
+      >
+        <Image
+          src={authorImage}
+          alt="Farid ADOI - Technical Writer"
+          class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+        />
       </div>
     </div>
   </section>
 
+  {/* SECTION 1.5: My personal Journey */}
+  <section
+    class="max-w-4xl mx-auto px-4 py-16 md:py-20 border-t border-gray-100 dark:border-white/5"
+  >
+    <div class="text-center mb-10">
+      <h2
+        class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
+      >
+        My personal Journey
+      </h2>
+      <div class="w-16 h-1 bg-brand-gold mx-auto rounded-full"></div>
+    </div>
+
+    <div
+      class="space-y-6 text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
+    >
+      <p>
+        I began my writing journey with general blogs, driven by curiosity and a
+        love of knowledge. Over time, I developed a deep passion for technology
+        and innovation, especially in Gaming, Web3, AI, and emerging tech
+        fields. As clients increasingly asked me to integrate texts into
+        platforms like WordPress or Shopify, I decided to master the
+        technologies behind websites and web apps.
+      </p>
+      <p>
+        This led me to pursue Software Engineering at <a
+          href="https://epitech.bj"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-gold hover:underline font-medium">Epitech Africa</a
+        >, where I completed a full‑stack development program. With my artistic
+        background and eye for design, I naturally gravitated toward frontend
+        work, where beauty and presentation matter most. To strengthen my
+        ability to support new projects, I added a Growth Marketing program,
+        giving me insight into how businesses attract and engage customers.
+      </p>
+      <p>
+        Earlier, my studies at the <a
+          href="https://uac.bj/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-gold hover:underline font-medium"
+          >University of Abomey‑Calavi</a
+        > in Modern Letters taught me how to analyze and communicate complex ideas
+        with clarity. That foundation in humanities now complements my technical expertise,
+        allowing me to write and build with both creativity and precision.
+      </p>
+      <p>
+        I continue to expand my skills through bootcamps, meetups, and
+        communities focused on AI, Web3, and tech. These experiences allow me to
+        test, understand, and communicate complex ideas more effectively. Today,
+        this journey makes me confident and comfortable writing on technical
+        topics — blending creativity, academic depth, technical knowledge, and
+        marketing insight to deliver content that connects.
+      </p>
+    </div>
+  </section>
+
   {/* SECTION 2: The Path (Light Section) */}
-  <section class="bg-gray-50 dark:bg-gray-800/40 border-y border-gray-200 dark:border-gray-800 py-20 md:py-28 relative overflow-hidden">
+  <section
+    class="bg-gray-50 dark:bg-gray-800/40 border-y border-gray-200 dark:border-gray-800 py-20 md:py-28 relative overflow-hidden"
+  >
     {/* Subtle background decoration */}
-    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-brand-gold/5 blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-brand-gold/5 blur-3xl pointer-events-none"></div>
-    
+    <div
+      class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-brand-gold/5 blur-3xl pointer-events-none"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-brand-gold/5 blur-3xl pointer-events-none"
+    >
+    </div>
+
     <div class="max-w-4xl mx-auto px-4 relative z-10">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">My Journey & Methodology</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">How I developed a self-promoting system to catch perfect clients.</p>
+        <h2
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+        >
+          My Journey & Methodology
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          How I developed a self-promoting system to catch perfect clients.
+        </p>
       </div>
 
       <div class="space-y-12">
         {/* Step 1 */}
-        <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group">
-          <div class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2">
-            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden">01</div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors">The Foundation</h3>
-            <span class="text-sm font-semibold text-brand-gold tracking-wide uppercase">Technical Roots</span>
+        <div
+          class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group"
+        >
+          <div
+            class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden"
+            >
+              01
+            </div>
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors"
+            >
+              The Foundation
+            </h3>
+            <span
+              class="text-sm font-semibold text-brand-gold tracking-wide uppercase"
+              >Technical Roots</span
+            >
           </div>
-          
+
           <div class="hidden md:flex flex-col items-center relative">
-            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm z-10">01</div>
-            <div class="absolute top-12 bottom-[-48px] w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+            <div
+              class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm z-10"
+            >
+              01
+            </div>
+            <div
+              class="absolute top-12 bottom-[-48px] w-0.5 bg-gray-200 dark:bg-gray-700"
+            >
+            </div>
           </div>
-          
-          <div class="md:w-1/2 bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+
+          <div
+            class="md:flex-1 bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow"
+          >
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              I started by diving deep into the technical weeds. Understanding how a protocol or API works is the prerequisite, but I quickly realized that raw technical data doesn't sell—vision does.
+              I began by diving deep into the technical side of things. Understanding how a system works is essential, but raw technical detail doesn’t sell—vision does. My role is to translate technical depth into clear value, focusing on what the technology brings to people.
             </p>
           </div>
         </div>
 
         {/* Step 2 */}
-        <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group">
-          <div class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2">
-            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden">02</div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors">The Shift</h3>
-            <span class="text-sm font-semibold text-brand-gold tracking-wide uppercase">Strategic Copy</span>
+        <div
+          class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group"
+        >
+          <div
+            class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden"
+            >
+              02
+            </div>
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors"
+            >
+              The Shift
+            </h3>
+            <span
+              class="text-sm font-semibold text-brand-gold tracking-wide uppercase"
+              >Strategic Copy</span
+            >
           </div>
-          
+
           <div class="hidden md:flex flex-col items-center relative">
-            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm z-10">02</div>
-            <div class="absolute top-12 bottom-[-48px] w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+            <div
+              class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm z-10"
+            >
+              02
+            </div>
+            <div
+              class="absolute top-12 bottom-[-48px] w-0.5 bg-gray-200 dark:bg-gray-700"
+            >
+            </div>
           </div>
-          
-          <div class="md:w-1/2 bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+
+          <div
+            class="md:flex-1 bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow"
+          >
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              I shifted my methodology from merely "explaining" to "positioning." I built a self-promoting structure in my writing that doesn't just inform the reader, but creates an irresistible professional identity that naturally attracts high-ticket clients.
+              I shifted my methodology from simply “explaining” to strategic positioning. Rather than describing a product in abstract terms, I frame it as the exact solution your audience needs—creating a professional identity that naturally attracts the right clients.
             </p>
           </div>
         </div>
 
         {/* Step 3 */}
-        <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group">
-          <div class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2">
-            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden">03</div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors">The Result</h3>
-            <span class="text-sm font-semibold text-brand-gold tracking-wide uppercase">Client Acquisition</span>
+        <div
+          class="flex flex-col md:flex-row gap-6 md:gap-12 items-start group"
+        >
+          <div
+            class="md:w-1/3 flex flex-row md:flex-col items-center md:items-end md:text-right gap-4 md:gap-2 pt-2"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 border-2 border-brand-gold flex items-center justify-center text-brand-gold font-bold text-lg shadow-sm md:hidden"
+            >
+              03
+            </div>
+            <h3
+              class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors"
+            >
+              The Result
+            </h3>
+            <span
+              class="text-sm font-semibold text-brand-gold tracking-wide uppercase"
+              >Client Acquisition</span
+            >
           </div>
-          
+
           <div class="hidden md:flex flex-col items-center relative">
-            <div class="w-12 h-12 rounded-full bg-brand-gold border-2 border-brand-gold flex items-center justify-center text-gray-900 font-bold text-lg shadow-sm z-10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <div
+              class="w-12 h-12 rounded-full bg-brand-gold border-2 border-brand-gold flex items-center justify-center text-gray-900 font-bold text-lg shadow-sm z-10"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
             </div>
           </div>
-          
-          <div class="md:w-1/2 bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-brand-gold">
+
+          <div
+            class="md:flex-1 bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-brand-gold"
+          >
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Today, my work serves a dual purpose: it delivers immense value to the reader while simultaneously acting as a lead-generation tool. Quality content is the best networking strategy you can deploy.
+              My work serves a dual purpose: delivering meaningful value while acting as a lead‑generation tool. The outcome is not just engagement, but conversion—readers become convinced users, and clients gain visibility and absolute trust.
             </p>
           </div>
         </div>
       </div>
 
       <div class="mt-16 text-center">
-        <a href="https://calendly.com/souroufaridadoi0/30min" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-8 py-3.5 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 dark:hover:bg-brand-gold transition-colors shadow-sm cursor-pointer border border-transparent">
+        <a
+          href="https://calendly.com/souroufaridadoi0/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex justify-center items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-8 py-3.5 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 dark:hover:bg-brand-gold transition-colors shadow-sm cursor-pointer border border-transparent"
+        >
           Hire Me For Your Project
         </a>
       </div>
@@ -139,56 +344,106 @@ const posts = Object.values(
 
   {/* SECTION 3: Personal Archive (Blog Grid) */}
   <section class="max-w-6xl mx-auto px-4 py-20 md:py-28">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+    <div
+      class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
+    >
       <div class="max-w-2xl">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Vision & Philosophy</h2>
+        <h2
+          class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+        >
+          Vision & Philosophy
+        </h2>
         <p class="text-lg text-gray-600 dark:text-gray-400">
-          Personal thoughts on creating a professional identity, methodology, and the evolving landscape of digital copywriting.
+          Personal thoughts on creating a professional identity, methodology,
+          and the evolving landscape of digital copywriting.
         </p>
       </div>
-      <button data-open-modal data-service="Content Creation" class="hidden md:inline-flex justify-center items-center bg-brand-gold/10 text-brand-gold px-6 py-2.5 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 transition-colors border border-brand-gold/20 hover:border-brand-gold shadow-sm whitespace-nowrap">
+      <button
+        data-open-modal
+        data-service="Content Creation"
+        class="hidden md:inline-flex justify-center items-center bg-brand-gold/10 text-brand-gold px-6 py-2.5 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 transition-colors border border-brand-gold/20 hover:border-brand-gold shadow-sm whitespace-nowrap"
+      >
         Request an Article
       </button>
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => {
-        // Extract the slug properly for routing
-        const slug = post.file.split('/').pop()?.replace('.md', '');
-        
-        return (
-          <a href={`/about/${slug}`} class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full group">
-            <div class="flex-grow">
-              <div class="flex items-center gap-3 mb-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                <span>{post.frontmatter.date || 'Recent'}</span>
-                <span class="w-1 h-1 rounded-full bg-brand-gold"></span>
-                <span>{post.frontmatter.readTime || '5 min read'}</span>
+      {
+        posts.map((post) => {
+          // Extract the slug properly for routing
+          const slug = post.file.split("/").pop()?.replace(".md", "");
+
+          return (
+            <a
+              href={`/about/${slug}`}
+              class="flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-brand-gold/50 transition-all duration-300 h-full group"
+            >
+              <div class="flex-grow">
+                <div class="flex items-center gap-3 mb-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <span>{post.frontmatter.date || "Recent"}</span>
+                  <span class="w-1 h-1 rounded-full bg-brand-gold" />
+                  <span>{post.frontmatter.readTime || "5 min read"}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-gold transition-colors leading-snug">
+                  {post.frontmatter.title || "Untitled Thought"}
+                </h3>
+
+                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                  {post.frontmatter.description ||
+                    "A deeper dive into my personal philosophy and methodology for creating content that converts."}
+                </p>
               </div>
-              
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-gold transition-colors leading-snug">
-                {post.frontmatter.title || 'Untitled Thought'}
-              </h3>
-              
-              <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                {post.frontmatter.description || 'A deeper dive into my personal philosophy and methodology for creating content that converts.'}
-              </p>
-            </div>
-            
-            <div class="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-sm font-medium text-brand-gold">
-              Read Article
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </div>
-          </a>
-        );
-      })}
+
+              <div class="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-sm font-medium text-brand-gold">
+                Read Article
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="transform group-hover:translate-x-1 transition-transform"
+                >
+                  <>
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </>
+                </svg>
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
 
     {/* Mobile CTA */}
     <div class="mt-10 md:hidden text-center">
-      <button data-open-modal data-service="Content Creation" class="w-full inline-flex justify-center items-center bg-brand-gold/10 text-brand-gold px-6 py-3 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 transition-colors border border-brand-gold/20 hover:border-brand-gold shadow-sm">
+      <button
+        data-open-modal
+        data-service="Content Creation"
+        class="w-full inline-flex justify-center items-center bg-brand-gold/10 text-brand-gold px-6 py-3 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 transition-colors border border-brand-gold/20 hover:border-brand-gold shadow-sm"
+      >
         Request an Article
       </button>
     </div>
   </section>
-
 </BaseLayout>
+
+<style>
+  @keyframes drawLine {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .animate-draw-line {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+</style>
