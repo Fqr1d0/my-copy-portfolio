@@ -12,18 +12,15 @@
     <h3 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight">Let's build something great.</h3>
     <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm md:text-base">Fill out the brief below and I'll get back to you within 24 hours.</p>
 
-    {Astro.url.searchParams.get('success') === 'true' && (
-      <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800/50 flex items-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        <span class="font-medium">Thanks! I'll get back to you within 24 hours.</span>
-      </div>
-    )}
-    {Astro.url.searchParams.get('error') && (
-      <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800/50 flex items-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        <span class="font-medium">Something went wrong. Please try again or email me directly.</span>
-      </div>
-    )}
+    <div id="project-form-success" class="hidden mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800/50 flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <span class="font-medium">Thanks! I'll get back to you within 24 hours.</span>
+    </div>
+    
+    <div id="project-form-error" class="hidden mb-6 p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800/50 flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      <span class="font-medium">Something went wrong. Please try again or email me directly.</span>
+    </div>
     
     <form id="project-form" name="project-request" class="space-y-4 text-left" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
       <p class="hidden">
@@ -94,10 +91,45 @@
   const projectModal = document.getElementById('project-modal') as HTMLDialogElement;
 
   if (projectModal) {
-    // Set dynamic action URL for Netlify form success redirect
     const form = document.getElementById('project-form') as HTMLFormElement;
+    const successMsg = document.getElementById('project-form-success');
+    const errorMsg = document.getElementById('project-form-error');
+    const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+
     if (form) {
-      form.action = window.location.pathname + '?success=true';
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'Sending...';
+        }
+        
+        const formData = new FormData(form);
+        
+        formData.append('form-name', 'project-request');
+        fetch('/', {
+          method: 'POST',
+          body: formData
+        })
+        .then(() => {
+          if (successMsg) successMsg.classList.remove('hidden');
+          if (errorMsg) errorMsg.classList.add('hidden');
+          form.reset();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Project';
+          }
+        })
+        .catch((error) => {
+          if (successMsg) successMsg.classList.add('hidden');
+          if (errorMsg) errorMsg.classList.remove('hidden');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Project';
+          }
+        });
+      });
     }
 
     // Listen for any clicks on elements with the 'data-open-modal' attribute
@@ -136,21 +168,9 @@
         e.clientY > dialogDimensions.bottom
       ) {
         projectModal.close();
-        
-        // Clear URL params if modal is closed so it doesn't reopen on reload
-        const url = new URL(window.location.href);
-        if (url.searchParams.has('success') || url.searchParams.has('error')) {
-          url.searchParams.delete('success');
-          url.searchParams.delete('error');
-          window.history.replaceState({}, '', url);
-        }
+        if (successMsg) successMsg.classList.add('hidden');
+        if (errorMsg) errorMsg.classList.add('hidden');
       }
     });
-
-    // Auto-open if success or error parameter is in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('success') || urlParams.has('error')) {
-      projectModal.showModal();
-    }
   }
 </script>
