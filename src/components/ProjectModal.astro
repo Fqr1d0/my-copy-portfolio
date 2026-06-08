@@ -25,10 +25,10 @@
       </div>
     )}
     
-    <form id="project-form" class="space-y-4 text-left" action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_COMMANDS_KEY}>
-      <input type="hidden" name="subject" value="New Project Request from Portfolio">
-      <input type="hidden" name="redirect" id="web3forms-redirect" value="">
+    <form id="project-form" name="project-request" class="space-y-4 text-left" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
+      <p class="hidden">
+        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+      </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label for="client-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
@@ -64,6 +64,14 @@
         <textarea id="project-scope" name="scope" required rows="3" class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold transition-colors text-gray-900 dark:text-white placeholder-gray-400 resize-none" placeholder="Tell me about what you need..."></textarea>
       </div>
 
+      <div>
+        <label for="project-file" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Project Brief / Attachment (Optional)</label>
+        <div class="relative w-full">
+          <input type="file" id="project-file" name="attachment" accept=".pdf,.doc,.docx,.txt,.zip" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-brand-gold/10 file:text-brand-gold hover:file:bg-brand-gold/20 transition-colors cursor-pointer border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none" />
+          <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">Max size: 5MB (PDF, DOCX, TXT, ZIP)</p>
+        </div>
+      </div>
+
 
 
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
@@ -86,10 +94,10 @@
   const projectModal = document.getElementById('project-modal') as HTMLDialogElement;
 
   if (projectModal) {
-    // Set dynamic redirect URL
-    const redirectInput = document.getElementById('web3forms-redirect') as HTMLInputElement;
-    if (redirectInput) {
-      redirectInput.value = window.location.href.split('?')[0] + '?success=true';
+    // Set dynamic action URL for Netlify form success redirect
+    const form = document.getElementById('project-form') as HTMLFormElement;
+    if (form) {
+      form.action = window.location.pathname + '?success=true';
     }
 
     // Listen for any clicks on elements with the 'data-open-modal' attribute

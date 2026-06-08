@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Frontmatter {
+  title: string;
+  description?: string;
+  keywords?: string;
+}
+
+interface MarkdownPost {
+  frontmatter: Frontmatter;
+  file: string;
+}
+
+const posts = Object.values(
+  import.meta.glob<MarkdownPost>('../../content/blog/*.md', { eager: true })
+).map(post => {
+  // Extract slug from file path
+  const parts = post.file.split('/');
+  const filename = parts[parts.length - 1];
+  const slug = filename.replace('.md', '');
+  return { ...post, slug };
+});
+---
+
+<BaseLayout title="Articles & Insights - Copypage">
+  <div class="max-w-7xl mx-auto py-16 md:py-24 px-6">
+    
+    {/* Page Header */}
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-bold rounded-full uppercase tracking-wider mb-6">
+        Thoughts & Insights
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">All Articles</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        A collection of my thoughts on technical writing, web3, AI, and the art of translating complexity into clarity.
+      </p>
+    </div>
+
+    {/* Articles Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="group block relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+          <div class="h-48 bg-gray-100 dark:bg-gray-800 w-full relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/10 to-indigo-500/10 mix-blend-overlay z-10 group-hover:scale-110 transition-transform duration-700"></div>
+            <div class="absolute inset-0 bg-brand-gold opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10"></div>
+            
+            {/* Fallback pattern if no image */}
+            <div class="absolute inset-0 flex items-center justify-center opacity-20 dark:opacity-40">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-gray-900 dark:text-white"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+          </div>
+          
+          <div class="p-6 relative">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-gold transition-colors">
+              {post.frontmatter.title}
+            </h3>
+            {post.frontmatter.description && (
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-3">
+                {post.frontmatter.description}
+              </p>
+            )}
+            
+            <div class="flex items-center text-brand-gold font-medium text-sm group-hover:translate-x-1 transition-transform">
+              Read Article
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

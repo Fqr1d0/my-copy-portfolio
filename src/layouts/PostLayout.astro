@@ -1,0 +1,40 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+}
+
+const { title, description, keywords } = Astro.props;
+---
+
+<BaseLayout title={`${title} - Copypage`}>
+  <article class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+    <div class="mb-12">
+      <a href="/blog" class="inline-flex items-center gap-2 text-brand-gold hover:text-gray-900 dark:hover:text-white transition-colors mb-8 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Articles
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">{title}</h1>
+      {description && <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{description}</p>}
+      
+      {/* Visual Separator */}
+      <div class="w-20 h-1 bg-brand-gold rounded-full"></div>
+    </div>
+    
+    <div class="prose prose-lg dark:prose-invert prose-headings:font-bold prose-a:text-brand-gold hover:prose-a:text-gray-900 dark:hover:prose-a:text-white prose-a:transition-colors max-w-none">
+      <slot />
+    </div>
+    
+    {/* Author/CTA box at bottom of article */}
+    <div class="mt-20 pt-10 border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-gray-800/50 p-8 rounded-2xl">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Need words that work?</h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">If you enjoyed this article and want similar clarity for your brand's documentation, landing pages, or technical whitepapers, let's talk.</p>
+      <a href="/about" class="inline-flex justify-center items-center bg-brand-gold/10 text-brand-gold px-6 py-3 rounded-full font-bold hover:bg-brand-gold hover:text-gray-900 transition-colors border border-brand-gold/20 hover:border-brand-gold shadow-sm">
+        Hire Me
+      </a>
+    </div>
+  </article>
+</BaseLayout>

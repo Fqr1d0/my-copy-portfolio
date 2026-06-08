@@ -1,0 +1,31 @@
+---
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = Object.values(import.meta.glob('../../content/blog/*.md', { eager: true }));
+  
+  return posts.map((post: any) => {
+    // Extract the filename without the .md extension to use as the slug
+    const fileUrl = post.file;
+    const parts = fileUrl.split('/');
+    const filename = parts[parts.length - 1];
+    const slug = filename.replace('.md', '');
+
+    return {
+      params: { slug },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content, frontmatter } = post as any;
+---
+
+<PostLayout 
+  title={frontmatter.title} 
+  description={frontmatter.description} 
+  keywords={frontmatter.keywords}
+>
+  <Content />
+</PostLayout>
